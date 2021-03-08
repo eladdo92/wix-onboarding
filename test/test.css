@@ -9,3 +9,7 @@
 .triggeritem, .optionitem {
     list-style: none;
 }
+
+.optionitem:hover {
+    background: #ffe5e5;
+}
