@@ -1,32 +1,49 @@
-function addSelector(root) {
-    const dropDown = makeDropDown('Animals', 'animals', ['Monkey', 'Lemur', 'Tuna', 'Chipmunk', 'Gazelle', 'Human']);
-    root.appendChild(dropDown);
-}
+class DropDown {
 
-function makeDropDown(name, id, options) {
-    const listNode = document.createElement('ol');
-    listNode.setAttribute('id', id);
-    listNode.setAttribute('class', 'dropdown');
-    const stampNode = makeStamp('Favorite animal...');
-    listNode.appendChild(stampNode);
-    for (const option of options) {
-        const optionTag = makeOption(option);
-        listNode.appendChild(optionTag);
+    #element = null;
+    #options = [];
+
+    constructor(parent, options) {
+        if (options) {
+            this.#options = options;
+        }
+        this.#element = this.#makeDropDownNode();
+        const stampNode = this.#makeTriggerItemNode('Favorite animal...');
+        this.#element.appendChild(stampNode);
+        parent.appendChild(this.#element);
     }
-    return listNode;
-}
 
-function makeStamp(text) {
-    const stampNode = makeOption(text);
-    // stampNode.setAttribute('selected', 'true');
-    // stampNode.setAttribute('class', 'stamp');
-    return stampNode;
-}
+    #displayAllItems() {
+        this.#displayItems(0, this.#options.length - 1);
+    }
 
-function makeOption(text) {
-    const optionNode = document.createElement('li');
-    const textNode = document.createTextNode(text);
-    optionNode.appendChild(textNode);
-    return optionNode;
-}
+    #displayItems(from, to) {
+        from = Math.max(0, from);
+        to = Math.min(to, this.#options.length - 1);
 
+        for (let i=from; i<=to; i++) {
+            const optionTag = this.#makeOptionItemNode(this.#options[i]);
+            this.#element.appendChild(optionTag);
+        }
+    }
+
+    #makeDropDownNode() {
+        const listNode = document.createElement('ol');
+        listNode.setAttribute('class', 'dropdown');
+        return listNode;
+    }
+
+    #makeTriggerItemNode(text) {
+        const stampNode = this.#makeOptionItemNode(text);
+        const that = this;
+        stampNode.addEventListener('click', function(event) {that.#displayAllItems()});
+        return stampNode;
+    }
+
+    #makeOptionItemNode(text) {
+        const optionNode = document.createElement('li');
+        const textNode = document.createTextNode(text);
+        optionNode.appendChild(textNode);
+        return optionNode;
+    }
+}
