@@ -27,6 +27,12 @@ class DropDown {
         }
     }
 
+    #hideAllOptionItems() {
+        while (this.#element.children.length > 1) {
+            this.#element.removeChild(this.#element.lastChild);
+        }
+    }
+
     #makeDropDownNode() {
         const listNode = document.createElement('ol');
         listNode.setAttribute('class', 'dropdown');
@@ -37,8 +43,20 @@ class DropDown {
         const stampNode = this.#makeOptionItemNode(text);
         stampNode.setAttribute('class', 'triggeritem');
         const that = this;
-        stampNode.addEventListener('click', function(event) {that.#displayAllOptionItems()});
+        stampNode.addEventListener('click', function(event) {that.#handleTriggerItemClick(event)});
         return stampNode;
+    }
+
+    #handleTriggerItemClick(event) {
+        if (this.#isOpen()) {
+            this.#hideAllOptionItems();
+        }else{
+            this.#displayAllOptionItems();
+        }
+    }
+
+    #isOpen() {
+        return this.#element.children.length > 1;
     }
 
     #makeOptionItemNode(text) {
