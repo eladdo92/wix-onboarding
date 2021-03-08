@@ -13,11 +13,11 @@ class DropDown {
         parent.appendChild(this.#element);
     }
 
-    #displayAllItems() {
-        this.#displayItems(0, this.#options.length - 1);
+    #displayAllOptionItems() {
+        this.#displayOptionItems(0, this.#options.length - 1);
     }
 
-    #displayItems(from, to) {
+    #displayOptionItems(from, to) {
         from = Math.max(0, from);
         to = Math.min(to, this.#options.length - 1);
 
@@ -35,13 +35,15 @@ class DropDown {
 
     #makeTriggerItemNode(text) {
         const stampNode = this.#makeOptionItemNode(text);
+        stampNode.setAttribute('class', 'triggeritem');
         const that = this;
-        stampNode.addEventListener('click', function(event) {that.#displayAllItems()});
+        stampNode.addEventListener('click', function(event) {that.#displayAllOptionItems()});
         return stampNode;
     }
 
     #makeOptionItemNode(text) {
         const optionNode = document.createElement('li');
+        optionNode.setAttribute('class', 'optionitem')
         const textNode = document.createTextNode(text);
         optionNode.appendChild(textNode);
         return optionNode;
