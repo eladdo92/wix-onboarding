@@ -12,6 +12,10 @@ class DropDown {
         const stampNode = this.#makeTriggerItemNode(props['placeholder']);
         this.#element.appendChild(stampNode);
         parent.appendChild(this.#element);
+
+        if (props['openByDefault']) {
+            this.#displayAllOptionItems();
+        }
     }
 
     #displayAllOptionItems() {
