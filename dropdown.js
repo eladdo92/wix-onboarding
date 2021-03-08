@@ -4,29 +4,29 @@ function addSelector(root) {
 }
 
 function makeDropDown(name, id, options) {
-    const selectNode = document.createElement('select');
-    selectNode.setAttribute('name', name);
-    selectNode.setAttribute('id', id);
-    selectNode.setAttribute('class', 'dropdown');
+    const listNode = document.createElement('ol');
+    listNode.setAttribute('id', id);
+    listNode.setAttribute('class', 'dropdown');
     const stampNode = makeStamp('Favorite animal...');
-    selectNode.appendChild(stampNode);
+    listNode.appendChild(stampNode);
     for (const option of options) {
         const optionTag = makeOption(option);
-        selectNode.appendChild(optionTag);
+        listNode.appendChild(optionTag);
     }
-    return selectNode;
+    return listNode;
 }
 
 function makeStamp(text) {
     const stampNode = makeOption(text);
-    stampNode.setAttribute('selected', 'true');
-    stampNode.setAttribute('class', 'stamp');
+    // stampNode.setAttribute('selected', 'true');
+    // stampNode.setAttribute('class', 'stamp');
     return stampNode;
 }
 
 function makeOption(text) {
-    const optionNode = document.createElement('option');
+    const optionNode = document.createElement('li');
     const textNode = document.createTextNode(text);
     optionNode.appendChild(textNode);
     return optionNode;
 }
+
