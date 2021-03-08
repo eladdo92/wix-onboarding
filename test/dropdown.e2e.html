@@ -10,7 +10,11 @@
         <div id="testcontainer"></div>
         <script src="../dropdown.js"></script>
         <script>
-            const d = new DropDown(document.getElementById('testcontainer'), ['Monkey', 'Lemur', 'Tuna', 'Chipmunk', 'Gazelle', 'Human']);
+            const options = ['Monkey', 'Lemur', 'Tuna', 'Chipmunk', 'Gazelle', 'Human'];
+            const props = {
+                'placeholder': 'Favorite animal...'
+            }
+            const d = new DropDown(document.getElementById('testcontainer'), options, props);
         </script>
     </body>
 </html>

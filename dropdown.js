@@ -3,12 +3,13 @@ class DropDown {
     #element = null;
     #options = [];
 
-    constructor(parent, options) {
+    constructor(parent, options, props) {
         if (options) {
             this.#options = options;
         }
         this.#element = this.#makeDropDownNode();
-        const stampNode = this.#makeTriggerItemNode('Favorite animal...');
+        //TODO: what happens when there is no placeholder
+        const stampNode = this.#makeTriggerItemNode(props['placeholder']);
         this.#element.appendChild(stampNode);
         parent.appendChild(this.#element);
     }
