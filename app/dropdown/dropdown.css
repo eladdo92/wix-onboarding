@@ -10,6 +10,11 @@
     list-style: none;
 }
 
+/* TODO: instead of trigger-item use trigger-icon */
+.trigger-item:hover, .option-item:hover {
+    cursor: pointer;
+}
+
 .hidden-option-items {
     display: none;
 }
