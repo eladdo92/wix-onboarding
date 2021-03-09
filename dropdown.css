@@ -1,3 +1,11 @@
+.disabled-option-item {
+    border: 1px solid #b00020;
+}
+
+.disabled-trigger-item {
+    border: 1px solid #b00020;
+}
+
 .trigger-item, .option-item, .divider-item {
     list-style: none;
 }

@@ -4,30 +4,32 @@ class DropDown {
     #triggerItemNode = null;
     #optionItemsRoot = null;
     
-    #options = [];
-
     constructor(parent, options, props) {
-        if (options) {
-            this.#options = options;
-        }
-        this.#rootNode = this.#makeDropDownNode();
-        //TODO: what happens when there is no placeholder
-        this.#triggerItemNode = this.#makeTriggerItemNode(props['placeholder']);
-        this.#rootNode.appendChild(this.#triggerItemNode);
-        this.#optionItemsRoot = this.#makeOptionItems(this.#options);
-        this.#rootNode.appendChild(this.#optionItemsRoot);
-        this.#initOptionItemsClass();
-        this.mount(parent);
+        //TODO: what happens when parameters are bad
+        this.#makeDropDown(props.placeholder, options);
         
-        if (!props['openByDefault']) {
+        this.#rootNode = this.#makeDropDown(props.placeholder, options, !props.disabled);
+        this.mount(parent);
+
+        if (!props.openByDefault) {
             this.#hideOptionItems();
         }
     }
 
-    #makeOptionItems(options) {
+    #makeDropDown(placeholder, options, enabled) {
+        const dropDown = this.#makeDropDownNode();
+        this.#triggerItemNode = this.#makeTriggerItemNode(placeholder, enabled);
+        dropDown.appendChild(this.#triggerItemNode);
+        this.#optionItemsRoot = this.#makeOptionItems(options, enabled);
+        dropDown.appendChild(this.#optionItemsRoot);
+        this.#initOptionItemsClass();
+        return dropDown;
+    }
+
+    #makeOptionItems(options, enabled) {
         const optionItemsNode = document.createElement('div');
         for (const option of options) {
-            const optionItemNode = this.#makeListItemNode(option);
+            const optionItemNode = this.#makeListItemNode(option, enabled);
             optionItemsNode.appendChild(optionItemNode);
         }
         return optionItemsNode;
@@ -51,12 +53,12 @@ class DropDown {
         return listNode;
     }
 
-    #makeTriggerItemNode(text) {
-        const stampNode = this.#makeItemNode(text);
-        stampNode.setAttribute('class', 'trigger-item');
+    #makeTriggerItemNode(text, enabled) {
+        const className = enabled ? 'trigger-item' : 'trigger-item disabled-trigger-item';
         const that = this;
-        stampNode.addEventListener('click', function(event) {that.#handleTriggerItemClick(event)});
-        return stampNode;
+        const eventListener = enabled ? function(event) {that.#handleTriggerItemClick(event)} : null;
+        const triggerNode = this.#makeItemNode(text, className, eventListener);
+        return triggerNode;
     }
 
     #handleTriggerItemClick(event) {
@@ -71,9 +73,9 @@ class DropDown {
         return !this.#optionItemsRoot.getAttribute('class').includes('hidden-option-items');
     }
 
-    #makeListItemNode(option) {
+    #makeListItemNode(option, enabled) {
         if (option['type'] === 'text') {
-            return this.#makeOptionItemNode(option['value']);
+            return this.#makeOptionItemNode(option['value'], enabled);
         }else if (option['type'] === 'divider'){
             return this.#makeDividerItemNode();
         }
@@ -85,11 +87,11 @@ class DropDown {
         return dividerNode;
     }
 
-    #makeOptionItemNode(text) {
-        const optionNode = this.#makeItemNode(text);
-        optionNode.setAttribute('class', 'option-item');
+    #makeOptionItemNode(text, enabled) {
+        const className = enabled ? 'option-item' : 'option-item disabled-option-item';
         const that = this;
-        optionNode.addEventListener('click', function(event) {that.#handleOptionItemClick(event, text)});
+        const eventListener = enabled ? function(event) {that.#handleOptionItemClick(event, text)} : null;
+        const optionNode = this.#makeItemNode(text, className, eventListener);
         return optionNode;
     }
 
@@ -109,10 +111,16 @@ class DropDown {
         return this.#triggerItemNode;
     }
 
-    #makeItemNode(text) {
+    #makeItemNode(text, className, onClickListener) {
         const item = document.createElement('li');
         const textNode = document.createTextNode(text);
         item.appendChild(textNode);
+        if (className){
+            item.setAttribute('class', className);
+        }
+        if (onClickListener) {
+            item.addEventListener('click', onClickListener);
+        }
         return item;
     }
 
