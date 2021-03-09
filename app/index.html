@@ -10,10 +10,11 @@
         <div id="test-container"></div>
         <script src="dropdown/dropdown.js"></script>
         <script>
-            function textOption(text) {
+            function textOption(text, disabled) {
                 return {
                     'type': 'text',
-                    'value': text
+                    'value': text, 
+                    'disabled': Boolean(disabled)
                 };
             }
             function dividerOption() {
@@ -21,7 +22,7 @@
                     'type': 'divider'
                 };
             }
-            const options = [textOption('Monkey'), textOption('Lemur'), dividerOption(), textOption('Tuna'), textOption('Chipmunk'), textOption('Gazelle'), textOption('Human')];
+            const options = [textOption('Monkey'), textOption('Lemur'), dividerOption(), textOption('Tuna', true), textOption('Chipmunk'), textOption('Gazelle'), textOption('Human')];
             const props = {
                 'placeholder': 'Favorite animal...',
                 'openByDefault': false,

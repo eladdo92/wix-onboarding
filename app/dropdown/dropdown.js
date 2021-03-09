@@ -6,8 +6,6 @@ class DropDown {
     
     constructor(parent, options, props) {
         //TODO: what happens when parameters are bad
-        this.#makeDropDown(props.placeholder, options);
-        
         this.#rootNode = this.#makeDropDown(props.placeholder, options, !props.disabled);
         this.mount(parent);
 
@@ -29,7 +27,7 @@ class DropDown {
     #makeOptionItems(options, enabled) {
         const optionItemsNode = document.createElement('div');
         for (const option of options) {
-            const optionItemNode = this.#makeListItemNode(option, enabled);
+            const optionItemNode = this.#makeListItemNode(option, enabled && !option.disabled);
             optionItemsNode.appendChild(optionItemNode);
         }
         return optionItemsNode;
@@ -88,6 +86,7 @@ class DropDown {
     }
 
     #makeOptionItemNode(text, enabled) {
+        console.log(text, enabled);
         const className = enabled ? 'option-item' : 'option-item disabled-option-item';
         const that = this;
         const eventListener = enabled ? function(event) {that.#handleOptionItemClick(event, text)} : null;
