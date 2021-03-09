@@ -23,12 +23,16 @@
                 };
             }
             const options = [textOption('Monkey'), textOption('Lemur'), dividerOption(), textOption('Tuna', true), textOption('Chipmunk'), textOption('Gazelle'), textOption('Human')];
+            const longOptions = [];
+            for (let i=0; i<100; i++) {
+                longOptions[i] = options[i%options.length];
+            }            
             const props = {
                 'placeholder': 'Favorite animal...',
                 'openByDefault': false,
                 'disabled': false
             }
-            const d = new DropDown(document.getElementById('test-container'), options, props);
+            const d = new DropDown(document.getElementById('test-container'), longOptions, props);
         </script>
     </body>
 </html>
