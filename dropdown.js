@@ -74,9 +74,9 @@ class DropDown {
     }
 
     #makeListItemNode(option, enabled) {
-        if (option['type'] === 'text') {
-            return this.#makeOptionItemNode(option['value'], enabled);
-        }else if (option['type'] === 'divider'){
+        if (option.type === 'text') {
+            return this.#makeOptionItemNode(option.value, enabled);
+        }else if (option.type === 'divider'){
             return this.#makeDividerItemNode();
         }
     }
