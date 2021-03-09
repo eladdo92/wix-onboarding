@@ -9,8 +9,8 @@ class DropDown {
         }
         this.#element = this.#makeDropDownNode();
         //TODO: what happens when there is no placeholder
-        const stampNode = this.#makeTriggerItemNode(props['placeholder']);
-        this.#element.appendChild(stampNode);
+        const triggerNode = this.#makeTriggerItemNode(props['placeholder']);
+        this.#element.appendChild(triggerNode);
         this.mount(parent);
 
         if (props['openByDefault']) {
@@ -45,7 +45,7 @@ class DropDown {
     }
 
     #makeTriggerItemNode(text) {
-        const stampNode = this.#makeOptionItemNode(text);
+        const stampNode = this.#makeItemNode(text);
         stampNode.setAttribute('class', 'triggeritem');
         const that = this;
         stampNode.addEventListener('click', function(event) {that.#handleTriggerItemClick(event)});
@@ -79,11 +79,34 @@ class DropDown {
     }
 
     #makeOptionItemNode(text) {
-        const optionNode = document.createElement('li');
-        optionNode.setAttribute('class', 'optionitem')
-        const textNode = document.createTextNode(text);
-        optionNode.appendChild(textNode);
+        const optionNode = this.#makeItemNode(text);
+        optionNode.setAttribute('class', 'optionitem');
+        const that = this;
+        optionNode.addEventListener('click', function(event) {that.#handleOptionItemClick(event, text)});
         return optionNode;
+    }
+
+    #handleOptionItemClick(event, option) {
+        if (this.#isOpen()) {
+            this.#hideAllOptionItems();
+        }
+        this.#updateTrigger(option);
+    }
+
+    #updateTrigger(text) {
+        const triggerNode = this.#getTriggerNode();
+        triggerNode.textContent = text;
+    }
+
+    #getTriggerNode() {
+        return this.#element.children[0];
+    }
+
+    #makeItemNode(text) {
+        const item = document.createElement('li');
+        const textNode = document.createTextNode(text);
+        item.appendChild(textNode);
+        return item;
     }
 
     mount(parent) {
