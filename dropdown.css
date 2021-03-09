@@ -6,12 +6,9 @@
     display: none;
 }
 
-.option-items {
-
-}
-
 .option-item:hover {
-    background: #cce5ff;
+    background: #03A9F4;
+    color:white
 }
 
 .divider-item {
