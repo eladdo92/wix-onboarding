@@ -1,41 +1,48 @@
 class DropDown {
 
-    #element = null;
+    #rootNode = null;
+    #triggerItemNode = null;
+    #optionItemsRoot = null;
+    
     #options = [];
 
     constructor(parent, options, props) {
         if (options) {
             this.#options = options;
         }
-        this.#element = this.#makeDropDownNode();
+        this.#rootNode = this.#makeDropDownNode();
         //TODO: what happens when there is no placeholder
-        const triggerNode = this.#makeTriggerItemNode(props['placeholder']);
-        this.#element.appendChild(triggerNode);
+        this.#triggerItemNode = this.#makeTriggerItemNode(props['placeholder']);
+        this.#rootNode.appendChild(this.#triggerItemNode);
+        this.#optionItemsRoot = this.#makeOptionItems(this.#options);
+        this.#rootNode.appendChild(this.#optionItemsRoot);
+        this.#initOptionItemsClass();
         this.mount(parent);
-
-        if (props['openByDefault']) {
-            this.#displayAllOptionItems();
+        
+        if (!props['openByDefault']) {
+            this.#hideOptionItems();
         }
     }
 
-    #displayAllOptionItems() {
-        this.#displayOptionItems(0, this.#options.length - 1);
+    #makeOptionItems(options) {
+        const optionItemsNode = document.createElement('div');
+        for (const option of options) {
+            const optionItemNode = this.#makeListItemNode(option);
+            optionItemsNode.appendChild(optionItemNode);
+        }
+        return optionItemsNode;
     }
 
-    #displayOptionItems(from, to) {
-        from = Math.max(0, from);
-        to = Math.min(to, this.#options.length - 1);
-
-        for (let i=from; i<=to; i++) {
-            const optionTag = this.#makeListItemNode(this.#options[i]);
-            this.#element.appendChild(optionTag);
-        }
+    #initOptionItemsClass() {
+        this.#optionItemsRoot.setAttribute('class', 'option-items')
     }
 
-    #hideAllOptionItems() {
-        while (this.#element.children.length > 1) {
-            this.#element.removeChild(this.#element.lastChild);
-        }
+    #showOptionItems() {
+        this.#initOptionItemsClass();
+    }
+
+    #hideOptionItems() {
+        this.#optionItemsRoot.setAttribute('class', 'option-items hidden-option-items')
     }
 
     #makeDropDownNode() {
@@ -46,7 +53,7 @@ class DropDown {
 
     #makeTriggerItemNode(text) {
         const stampNode = this.#makeItemNode(text);
-        stampNode.setAttribute('class', 'triggeritem');
+        stampNode.setAttribute('class', 'trigger-item');
         const that = this;
         stampNode.addEventListener('click', function(event) {that.#handleTriggerItemClick(event)});
         return stampNode;
@@ -54,14 +61,14 @@ class DropDown {
 
     #handleTriggerItemClick(event) {
         if (this.#isOpen()) {
-            this.#hideAllOptionItems();
+            this.#hideOptionItems();
         }else{
-            this.#displayAllOptionItems();
+            this.#showOptionItems();
         }
     }
 
     #isOpen() {
-        return this.#element.children.length > 1;
+        return !this.#optionItemsRoot.getAttribute('class').includes('hidden-option-items');
     }
 
     #makeListItemNode(option) {
@@ -74,13 +81,13 @@ class DropDown {
 
     #makeDividerItemNode() {
         const dividerNode = document.createElement('li');
-        dividerNode.setAttribute('class', 'divideritem');
+        dividerNode.setAttribute('class', 'divider-item');
         return dividerNode;
     }
 
     #makeOptionItemNode(text) {
         const optionNode = this.#makeItemNode(text);
-        optionNode.setAttribute('class', 'optionitem');
+        optionNode.setAttribute('class', 'option-item');
         const that = this;
         optionNode.addEventListener('click', function(event) {that.#handleOptionItemClick(event, text)});
         return optionNode;
@@ -88,7 +95,7 @@ class DropDown {
 
     #handleOptionItemClick(event, option) {
         if (this.#isOpen()) {
-            this.#hideAllOptionItems();
+            this.#hideOptionItems();
         }
         this.#updateTrigger(option);
     }
@@ -99,7 +106,7 @@ class DropDown {
     }
 
     #getTriggerNode() {
-        return this.#element.children[0];
+        return this.#triggerItemNode;
     }
 
     #makeItemNode(text) {
@@ -110,12 +117,12 @@ class DropDown {
     }
 
     mount(parent) {
-        parent.appendChild(this.#element);
+        parent.appendChild(this.#rootNode);
     }
 
     unmount() {
-        if (this.#element.parentNode) {
-            this.#element.parentNode.removeChild(this.#element);
+        if (this.#rootNode.parentNode) {
+            this.#rootNode.parentNode.removeChild(this.#rootNode);
         }
     }
 }

@@ -1,15 +1,19 @@
-.dropdown .stamp {
-    display: none;
-}
-
-.triggeritem, .optionitem, .divideritem {
+.trigger-item, .option-item, .divider-item {
     list-style: none;
 }
 
-.optionitem:hover {
+.hidden-option-items {
+    display: none;
+}
+
+.option-items {
+
+}
+
+.option-item:hover {
     background: #cce5ff;
 }
 
-.divideritem {
+.divider-item {
     border-bottom: 1px solid #bbb;
 }
