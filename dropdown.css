@@ -1,3 +1,11 @@
 .dropdown .stamp {
     display: none;
 }
+
+.triggeritem, .optionitem {
+    list-style: none;
+}
+
+.optionitem:hover {
+    background: #cce5ff;
+}

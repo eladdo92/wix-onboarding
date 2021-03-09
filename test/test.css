@@ -5,11 +5,3 @@
     padding-top: 200px;
     font-size: 1.2em;
 }
-
-.triggeritem, .optionitem {
-    list-style: none;
-}
-
-.optionitem:hover {
-    background: #ffe5e5;
-}
