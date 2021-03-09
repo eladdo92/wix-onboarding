@@ -27,7 +27,7 @@ class DropDown {
         to = Math.min(to, this.#options.length - 1);
 
         for (let i=from; i<=to; i++) {
-            const optionTag = this.#makeOptionItemNode(this.#options[i]);
+            const optionTag = this.#makeListItemNode(this.#options[i]);
             this.#element.appendChild(optionTag);
         }
     }
@@ -62,6 +62,20 @@ class DropDown {
 
     #isOpen() {
         return this.#element.children.length > 1;
+    }
+
+    #makeListItemNode(option) {
+        if (option['type'] === 'text') {
+            return this.#makeOptionItemNode(option['value']);
+        }else if (option['type'] === 'divider'){
+            return this.#makeDividerItemNode();
+        }
+    }
+
+    #makeDividerItemNode() {
+        const dividerNode = document.createElement('li');
+        dividerNode.setAttribute('class', 'divideritem');
+        return dividerNode;
     }
 
     #makeOptionItemNode(text) {

@@ -10,7 +10,18 @@
         <div id="testcontainer"></div>
         <script src="../dropdown.js"></script>
         <script>
-            const options = ['Monkey', 'Lemur', 'Tuna', 'Chipmunk', 'Gazelle', 'Human'];
+            function textOption(text) {
+                return {
+                    'type': 'text',
+                    'value': text
+                };
+            }
+            function dividerOption() {
+                return {
+                    'type': 'divider'
+                };
+            }
+            const options = [textOption('Monkey'), textOption('Lemur'), dividerOption(), textOption('Tuna'), textOption('Chipmunk'), textOption('Gazelle'), textOption('Human')];
             const props = {
                 'placeholder': 'Favorite animal...',
                 'openByDefault': false,
