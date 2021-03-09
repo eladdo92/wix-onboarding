@@ -11,7 +11,7 @@ class DropDown {
         //TODO: what happens when there is no placeholder
         const stampNode = this.#makeTriggerItemNode(props['placeholder']);
         this.#element.appendChild(stampNode);
-        parent.appendChild(this.#element);
+        this.mount(parent);
 
         if (props['openByDefault']) {
             this.#displayAllOptionItems();
@@ -70,5 +70,15 @@ class DropDown {
         const textNode = document.createTextNode(text);
         optionNode.appendChild(textNode);
         return optionNode;
+    }
+
+    mount(parent) {
+        parent.appendChild(this.#element);
+    }
+
+    unmount() {
+        if (this.#element.parentNode) {
+            this.#element.parentNode.removeChild(this.#element);
+        }
     }
 }
