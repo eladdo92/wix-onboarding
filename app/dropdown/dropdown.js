@@ -62,12 +62,15 @@ class DropDown {
 
     #makeTriggerToggleNode(text, iconPath) {
         const rowNode = document.createElement('tr');
+        rowNode.setAttribute('class', 'trigger-toggle-container');
         const textContainerNode = document.createElement('td');
-        textContainerNode.setAttribute('id', 'trigger-text-container');
+        textContainerNode.setAttribute('id', 'trigger-text-td');
+        textContainerNode.setAttribute('class', 'trigger-text-container');
         const textNode = this.#makeTextNode(text);
         textContainerNode.appendChild(textNode);
         rowNode.appendChild(textContainerNode);
         const iconContainerNode = document.createElement('td');
+        iconContainerNode.setAttribute('class', 'trigger-icon-container');
         const iconNode = document.createElement('img');
         iconNode.setAttribute('class', 'trigger-icon');
         iconNode.setAttribute('src', iconPath);
@@ -123,9 +126,7 @@ class DropDown {
     }
 
     #getTriggerTextContainer() {
-        // const triggerItemNode = this.#getTriggerNode();
-        // console.log(triggerItemNode);
-        return document.getElementById('trigger-text-container')
+        return document.getElementById('trigger-text-td')
     }
 
     #getTriggerNode() {

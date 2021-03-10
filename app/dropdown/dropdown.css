@@ -11,9 +11,11 @@
 }
 
 .trigger-item {
-    width: 280dp;
-    height: 48dp;
+    /* min-height: 2em; */
+    min-width: 240px;
+    border-radius: 3px;
     border: 1px solid #eee;
+    align-content: center;
 }
 
 .option-items {
@@ -42,4 +44,20 @@
 .trigger-icon {
     width: 12px;
     height: 12px;
+}
+
+.trigger-toggle-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.trigger-text-container {
+    flex: 1;
+}
+
+.trigger-icon-container {
+    align-self: flex-end;
+    width: 24px;
+    height: 24px;
 }
