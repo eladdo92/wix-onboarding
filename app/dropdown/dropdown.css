@@ -11,16 +11,17 @@
 }
 
 .trigger-item {
-    /* min-height: 2em; */
     min-width: 240px;
     border-radius: 3px;
-    border: 1px solid #eee;
+    border: 1px solid #bbb;
     align-content: center;
 }
 
 .option-items {
-    height: 120px;
+    height: 8em;
     overflow: auto;
+    border-top: none;
+    border: 1px solid #ddd;
 }
 
 .trigger-icon:hover, .option-item:hover {
