@@ -1,12 +1,4 @@
-.disabled-option-item {
-    border: 1px solid #b00020;
-}
-
-.disabled-trigger-item {
-    border: 1px solid #b00020;
-}
-
-.trigger-item, .option-item, .divider-item {
+.trigger-item, .option-item, .divider-item, .disabled-option-item {
     list-style: none;
     padding-left: 8px;
 }
@@ -25,17 +17,26 @@
     border: 1px solid #ddd;
 }
 
-.trigger-icon:hover, .option-item:hover {
-    cursor: pointer;
-}
-
 .hidden-option-items {
     display: none;
 }
 
 .option-item:hover {
     background: #03A9F4;
-    color:white
+    color:white;
+    cursor: pointer;
+}
+
+.disabled-option-item {
+    border: 1px solid #b00020;
+    cursor: default;
+}
+
+.disabled-option-item:hover {
+    background: #FFCDD2;  /*TODO: change to a lighter red*/
+    color:white;
+    border: 1px solid #b00020;
+    cursor: default;
 }
 
 .divider-item {
@@ -45,6 +46,7 @@
 .trigger-icon {
     width: 12px;
     height: 12px;
+    cursor: pointer;
 }
 
 .trigger-toggle-container {
@@ -61,4 +63,9 @@
     align-self: flex-end;
     width: 24px;
     height: 24px;
+}
+
+.disabled-trigger-item {
+    border: 1px solid #b00020;
+    cursor: default;
 }

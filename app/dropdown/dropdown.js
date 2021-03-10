@@ -113,7 +113,7 @@ class DropDown {
     }
 
     #makeOptionItemNode(text, enabled) {
-        const className = enabled ? 'option-item' : 'option-item disabled-option-item';
+        const className = enabled ? 'option-item' : 'disabled-option-item';
         const that = this;
         const eventListener = enabled ? function(event) {that.#handleOptionItemClick(event, text)} : null;
         const optionNode = this.#makeItemNodeWithText(text, className, eventListener);

@@ -1,7 +1,7 @@
 #test-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
     height: 100%;
-    padding-top: 200px;
+    width: 100%;
     font-size: 1.2em;
 }
