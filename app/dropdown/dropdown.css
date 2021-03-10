@@ -33,7 +33,7 @@
 }
 
 .disabled-option-item:hover {
-    background: #FFCDD2;  /*TODO: change to a lighter red*/
+    background: #FFCDD2;
     color:white;
     border: 1px solid #b00020;
     cursor: default;
