@@ -8,6 +8,7 @@
 
 .trigger-item, .option-item, .divider-item {
     list-style: none;
+    padding-left: 8px;
 }
 
 .trigger-item {
