@@ -55,7 +55,7 @@ class DropDown {
         const className = enabled ? 'trigger-item' : 'trigger-item disabled-trigger-item';
         const that = this;
         const eventListener = enabled ? function(event) {that.#handleTriggerItemClick(event)} : null;
-        const triggerToggleNode = this.#makeTriggerToggleNode(text, '/Users/vladk/dev/wix-onboarding/app/dropdown/res/arrow.png');
+        const triggerToggleNode = this.#makeTriggerToggleNode(text, 'dropdown/res/arrow.png');
         const triggerNode = this.#makeItemNode(triggerToggleNode, className, eventListener);
         return triggerNode;
     }

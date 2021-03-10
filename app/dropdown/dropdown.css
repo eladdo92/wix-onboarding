@@ -23,7 +23,6 @@
     overflow: auto;
 }
 
-/* TODO: instead of trigger-item use trigger-icon */
 .trigger-icon:hover, .option-item:hover {
     cursor: pointer;
 }
