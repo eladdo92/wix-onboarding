@@ -42,7 +42,7 @@ class DropDown {
     }
 
     #initOptionItemsClass() {
-        this.#optionItemsRoot.setAttribute('class', 'option-items')
+        this.#optionItemsRoot.setAttribute('class', 'option-item-container')
     }
 
     #showOptionItems() {
@@ -50,7 +50,7 @@ class DropDown {
     }
 
     #hideOptionItems() {
-        this.#optionItemsRoot.setAttribute('class', 'option-items hidden-option-items')
+        this.#optionItemsRoot.setAttribute('class', 'option-item-container hidden-option-item-container')
     }
 
     #makeDropDownNode() {
@@ -95,7 +95,7 @@ class DropDown {
     }
 
     #isOpen() {
-        return !this.#optionItemsRoot.getAttribute('class').includes('hidden-option-items');
+        return !this.#optionItemsRoot.getAttribute('class').includes('hidden-option-item-container');
     }
 
     #makeListItemNode(option, enabled) {

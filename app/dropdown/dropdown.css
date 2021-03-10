@@ -10,14 +10,14 @@
     align-content: center;
 }
 
-.option-items {
+.option-item-container {
     height: 8em;
     overflow: auto;
     border-top: none;
     border: 1px solid #ddd;
 }
 
-.hidden-option-items {
+.hidden-option-item-container {
     display: none;
 }
 
