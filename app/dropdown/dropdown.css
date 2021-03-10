@@ -10,13 +10,19 @@
     list-style: none;
 }
 
+.trigger-item {
+    width: 280dp;
+    height: 48dp;
+    border: 1px solid #eee;
+}
+
 .option-items {
     height: 120px;
     overflow: auto;
 }
 
 /* TODO: instead of trigger-item use trigger-icon */
-.trigger-item:hover, .option-item:hover {
+.trigger-icon:hover, .option-item:hover {
     cursor: pointer;
 }
 
@@ -31,4 +37,9 @@
 
 .divider-item {
     border-bottom: 1px solid #bbb;
+}
+
+.trigger-icon {
+    width: 12px;
+    height: 12px;
 }

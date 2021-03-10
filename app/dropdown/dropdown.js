@@ -55,8 +55,25 @@ class DropDown {
         const className = enabled ? 'trigger-item' : 'trigger-item disabled-trigger-item';
         const that = this;
         const eventListener = enabled ? function(event) {that.#handleTriggerItemClick(event)} : null;
-        const triggerNode = this.#makeItemNode(text, className, eventListener);
+        const triggerToggleNode = this.#makeTriggerToggleNode(text, '/Users/vladk/dev/wix-onboarding/app/dropdown/res/arrow.png');
+        const triggerNode = this.#makeItemNode(triggerToggleNode, className, eventListener);
         return triggerNode;
+    }
+
+    #makeTriggerToggleNode(text, iconPath) {
+        const rowNode = document.createElement('tr');
+        const textContainerNode = document.createElement('td');
+        textContainerNode.setAttribute('id', 'trigger-text-container');
+        const textNode = this.#makeTextNode(text);
+        textContainerNode.appendChild(textNode);
+        rowNode.appendChild(textContainerNode);
+        const iconContainerNode = document.createElement('td');
+        const iconNode = document.createElement('img');
+        iconNode.setAttribute('class', 'trigger-icon');
+        iconNode.setAttribute('src', iconPath);
+        iconContainerNode.appendChild(iconNode);
+        rowNode.appendChild(iconContainerNode);
+        return rowNode;
     }
 
     #handleTriggerItemClick(event) {
@@ -86,11 +103,10 @@ class DropDown {
     }
 
     #makeOptionItemNode(text, enabled) {
-        console.log(text, enabled);
         const className = enabled ? 'option-item' : 'option-item disabled-option-item';
         const that = this;
         const eventListener = enabled ? function(event) {that.#handleOptionItemClick(event, text)} : null;
-        const optionNode = this.#makeItemNode(text, className, eventListener);
+        const optionNode = this.#makeItemNodeWithText(text, className, eventListener);
         return optionNode;
     }
 
@@ -102,23 +118,39 @@ class DropDown {
     }
 
     #updateTrigger(text) {
-        const triggerNode = this.#getTriggerNode();
+        const triggerNode = this.#getTriggerTextContainer();
         triggerNode.textContent = text;
+    }
+
+    #getTriggerTextContainer() {
+        // const triggerItemNode = this.#getTriggerNode();
+        // console.log(triggerItemNode);
+        return document.getElementById('trigger-text-container')
     }
 
     #getTriggerNode() {
         return this.#triggerItemNode;
     }
 
-    #makeItemNode(text, className, onClickListener) {
+    #makeItemNodeWithText(text, className, onClickListener) {
+        const textNode = this.#makeTextNode(text);
+        return this.#makeItemNode(textNode, className, onClickListener);
+    }
+
+    #makeTextNode(text){ 
+        return document.createTextNode(text)
+    }
+
+    #makeItemNode(innerNode, className, onClickListener) {
         const item = document.createElement('li');
-        const textNode = document.createTextNode(text);
-        item.appendChild(textNode);
         if (className){
             item.setAttribute('class', className);
         }
         if (onClickListener) {
             item.addEventListener('click', onClickListener);
+        }
+        if (innerNode) {
+            item.appendChild(innerNode);
         }
         return item;
     }
