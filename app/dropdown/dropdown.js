@@ -1,11 +1,11 @@
 class DropDown {
 
     #rootNode = null;
-    #triggerItemNode = null;
+    #triggerTextContainerNode = null;
     #optionItemsRoot = null;
     
     constructor(parent, options, props) {
-        //TODO: what happens when parameters are bad
+        props = Object.assign(this.#defaultProps(), props);
         this.#rootNode = this.#makeDropDown(props.placeholder, options, !props.disabled);
         this.mount(parent);
 
@@ -14,10 +14,18 @@ class DropDown {
         }
     }
 
+    #defaultProps() {
+        return {
+            'placeholder': 'Choose',
+            'disabled': false,
+            'openByDefault': false
+        };
+    }
+
     #makeDropDown(placeholder, options, enabled) {
         const dropDown = this.#makeDropDownNode();
-        this.#triggerItemNode = this.#makeTriggerItemNode(placeholder, enabled);
-        dropDown.appendChild(this.#triggerItemNode);
+        const triggerItemNode = this.#makeTriggerItemNode(placeholder, enabled);
+        dropDown.appendChild(triggerItemNode);
         this.#optionItemsRoot = this.#makeOptionItems(options, enabled);
         dropDown.appendChild(this.#optionItemsRoot);
         this.#initOptionItemsClass();
@@ -63,12 +71,11 @@ class DropDown {
     #makeTriggerToggleNode(text, iconPath) {
         const rowNode = document.createElement('tr');
         rowNode.setAttribute('class', 'trigger-toggle-container');
-        const textContainerNode = document.createElement('td');
-        textContainerNode.setAttribute('id', 'trigger-text-td');
-        textContainerNode.setAttribute('class', 'trigger-text-container');
+        this.#triggerTextContainerNode = document.createElement('td');
+        this.#triggerTextContainerNode.setAttribute('class', 'trigger-text-container');
         const textNode = this.#makeTextNode(text);
-        textContainerNode.appendChild(textNode);
-        rowNode.appendChild(textContainerNode);
+        this.#triggerTextContainerNode.appendChild(textNode);
+        rowNode.appendChild(this.#triggerTextContainerNode);
         const iconContainerNode = document.createElement('td');
         iconContainerNode.setAttribute('class', 'trigger-icon-container');
         const iconNode = document.createElement('img');
@@ -126,11 +133,7 @@ class DropDown {
     }
 
     #getTriggerTextContainer() {
-        return document.getElementById('trigger-text-td')
-    }
-
-    #getTriggerNode() {
-        return this.#triggerItemNode;
+        return this.#triggerTextContainerNode;
     }
 
     #makeItemNodeWithText(text, className, onClickListener) {
